@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Checkout_Kata
 {
-    class Program
+    public class Checkout
     {
         static void Main(string[] args)
         {
