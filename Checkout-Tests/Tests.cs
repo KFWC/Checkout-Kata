@@ -143,5 +143,33 @@ namespace Checkout_Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void ScannedOneItemA_OneItemB()
+        {
+            Checkout checkout = new Checkout();
+            checkout.Scan("A");
+            checkout.Scan("B");
+
+            int expected = 80;
+
+            int actual = checkout.GetTotalPrice();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ScannedTwoItemsB()
+        {
+            Checkout checkout = new Checkout();
+            checkout.Scan("B");
+            checkout.Scan("B");
+
+            int expected = 45;
+
+            int actual = checkout.GetTotalPrice();
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
