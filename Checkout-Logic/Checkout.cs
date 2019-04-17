@@ -29,24 +29,36 @@ namespace Checkout_Logic
 
         public int GetTotalPrice()
         {
-            int totalPrice = 0, specialQty = 0;
+            int totalPrice = 0, costPrice = 0, specialQty = 1, specialPrice = 0;
 
             foreach(string SKU in Items.Keys)
             {
                 switch(SKU)
                 {
                     case "A":
-                        specialQty = (Items["A"] / 3);
-                        totalPrice += (specialQty * 130 + ((Items["A"] - (specialQty * 3)) * 50));
+                        costPrice = 50;
+                        specialQty = 3;
+                        specialPrice = 130;
                         break;
                     case "B":
-                        specialQty = (Items["B"] / 2);
-                        totalPrice += (specialQty * 45 + ((Items["B"] - (specialQty * 2)) * 30));
+                        costPrice = 30;
+                        specialQty = 2;
+                        specialPrice = 45;
                         break;
                     case "C":
-                        totalPrice += (Items["C"] * 20);
+                        costPrice = 20;
+                        specialQty = 1;
+                        specialPrice = 20;
+                        break;
+                    case "D":
+                        costPrice = 15;
+                        specialQty = 1;
+                        specialPrice = 15;
                         break;
                 }
+
+                totalPrice += ((Items[SKU] / specialQty) * specialPrice);
+                totalPrice += ((Items[SKU] - (Items[SKU] / specialQty) * specialQty) * costPrice);
             }
             return totalPrice;
         }
