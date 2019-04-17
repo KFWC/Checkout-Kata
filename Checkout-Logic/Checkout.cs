@@ -33,7 +33,9 @@ namespace Checkout_Logic
 
             if (Items.Count > 0)
             {
-                totalPrice = (Items["A"] * 50);
+                int specialQty = (Items["A"] / 3);
+
+                totalPrice = (specialQty * 130 + ((Items["A"] - (specialQty * 3)) * 50));
             }
 
             return totalPrice;
