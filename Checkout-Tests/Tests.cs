@@ -335,5 +335,147 @@ namespace Checkout_Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void ScannedOneOfEachItem()
+        {
+            Checkout checkout = new Checkout();
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("D");
+
+            int expected = 115;
+
+            int actual = checkout.GetTotalPrice();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ScannedTwoItemsAWithOneOfEachOtherItem()
+        {
+            Checkout checkout = new Checkout();
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("D");
+
+            int expected = 165;
+
+            int actual = checkout.GetTotalPrice();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ScannedThreeItemsAWithOneOfEachOtherItem()
+        {
+            Checkout checkout = new Checkout();
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("D");
+
+            int expected = 195;
+
+            int actual = checkout.GetTotalPrice();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ScannedFourItemsAWithOneOfEachOtherItem()
+        {
+            Checkout checkout = new Checkout();
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("D");
+
+            int expected = 245;
+
+            int actual = checkout.GetTotalPrice();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ScannedTwoItemsBWithOneOfEachOtherItem()
+        {
+            Checkout checkout = new Checkout();
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("D");
+
+            int expected = 130;
+
+            int actual = checkout.GetTotalPrice();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ScannedThreeItemsBWithOneOfEachOtherItem()
+        {
+            Checkout checkout = new Checkout();
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("B");
+            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("D");
+
+            int expected = 160;
+
+            int actual = checkout.GetTotalPrice();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ScannedFourItemsAWithOneOfEachOtherItem_RandomOrder()
+        {
+            Checkout checkout = new Checkout();
+            checkout.Scan("C");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("D");
+
+            int expected = 245;
+
+            int actual = checkout.GetTotalPrice();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ScannedThreeItemsBWithOneOfEachOtherItem_RandomOrder()
+        {
+            Checkout checkout = new Checkout();
+            checkout.Scan("D");
+            checkout.Scan("B");
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("B");
+
+            int expected = 160;
+
+            int actual = checkout.GetTotalPrice();
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
