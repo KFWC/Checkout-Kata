@@ -33,11 +33,17 @@ namespace Checkout_Logic
 
             if (Items.Count > 0)
             {
-                int specialQty = (Items["A"] / 3);
+                if (Items.ContainsKey("A"))
+                {
+                    int specialQty = (Items["A"] / 3);
 
-                totalPrice = (specialQty * 130 + ((Items["A"] - (specialQty * 3)) * 50));
+                    totalPrice += (specialQty * 130 + ((Items["A"] - (specialQty * 3)) * 50));
+                }
+                if (Items.ContainsKey("B"))
+                {
+                    totalPrice += (Items["B"] * 30);
+                }
             }
-
             return totalPrice;
         }
     }
