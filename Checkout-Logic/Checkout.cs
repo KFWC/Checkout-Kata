@@ -9,10 +9,17 @@ namespace Checkout_Logic
     public class Checkout : ICheckout
     {
         private Dictionary<string,int> Items { get; set; }
+        private Dictionary<string,int> CostPrice { get; set; }
+        private Dictionary<string,int> SpecialQty { get; set; }
+        private Dictionary<string,int> SpecialPrice { get; set; }
 
         public Checkout()
         {
             Items = new Dictionary<string, int>();
+
+            CostPrice = new Dictionary<string, int>() { { "A", 50 }, { "B", 30 }, { "C", 20 }, { "D", 15 } };
+            SpecialQty = new Dictionary<string, int>() { { "A", 3 }, { "B", 2 }, { "C", 1 }, { "D", 1 } };
+            SpecialPrice = new Dictionary<string, int>() { { "A", 130 }, { "B", 45 }, { "C", 20 }, { "D", 15 } };
         }
 
         public void Scan(string item)
@@ -29,36 +36,12 @@ namespace Checkout_Logic
 
         public int GetTotalPrice()
         {
-            int totalPrice = 0, costPrice = 0, specialQty = 1, specialPrice = 0;
+            int totalPrice = 0;
 
             foreach(string SKU in Items.Keys)
             {
-                switch(SKU)
-                {
-                    case "A":
-                        costPrice = 50;
-                        specialQty = 3;
-                        specialPrice = 130;
-                        break;
-                    case "B":
-                        costPrice = 30;
-                        specialQty = 2;
-                        specialPrice = 45;
-                        break;
-                    case "C":
-                        costPrice = 20;
-                        specialQty = 1;
-                        specialPrice = 20;
-                        break;
-                    case "D":
-                        costPrice = 15;
-                        specialQty = 1;
-                        specialPrice = 15;
-                        break;
-                }
-
-                totalPrice += ((Items[SKU] / specialQty) * specialPrice);
-                totalPrice += ((Items[SKU] - (Items[SKU] / specialQty) * specialQty) * costPrice);
+                totalPrice += ((Items[SKU] / SpecialQty[SKU]) * SpecialPrice[SKU]);
+                totalPrice += ((Items[SKU] - (Items[SKU] / SpecialQty[SKU]) * SpecialQty[SKU]) * CostPrice[SKU]);
             }
             return totalPrice;
         }
